@@ -1,0 +1,15 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>  
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+        const children = 'Hello World';
+        const className = 'container';
+        const props = {children, className}
+        const element = <div id="app-root" {...props} className="Boo" />  //id will be added to the props and className will override the className in the props 
+        // const element = <div className={className} children={children} />
+        ReactDOM.render(element, rootElement);
+    </script>
+</body>
