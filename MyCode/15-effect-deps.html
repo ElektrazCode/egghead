@@ -1,0 +1,42 @@
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js"></script>  
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+ 
+        function Greeting(){
+            
+            const [name, setName] = React.useState(()=> window.localStorage.getItem("name") || ""); //as a callback function it will only be called once at the very first render
+            
+            React.useEffect(()=>{
+                window.localStorage.setItem('name', name);
+            }, [name]) //synchronizes the state of the world with the state of the application without resetting local storage with each render. Will only run when the state of the value in the array depedency changes.
+            
+            const handleChange = event => setName(event.target.value);   
+            
+            return (
+                <div>
+                    <form>
+                        <label htmlFor="name">Name:</label>
+                        <input value={name} onChange={handleChange} id="name" />    
+                    </form>
+                    {name ? <strong>Hello {name}</strong> : 'Please type your name'}
+                </div>
+            )
+        }
+
+        function App(){
+            const [count, setCount] = React.useState(0);
+            return(
+                <>
+                    <button onClick={()=> setCount(c=> c + 1)}>{count}</button>
+                    <Greeting />
+                </>
+            )
+        }
+        
+        ReactDOM.render(<App />, root);
+    </script>
+</body>
